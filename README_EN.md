@@ -10,7 +10,7 @@ This is a customized version based on SongConvertor by bluetaiko. Since the orig
 
 ## Download
 
-Download `SongConverter-v1.1.0.exe` from [Releases](https://github.com/taniniya/SongConverter/releases). It is a self-contained single file with the .NET runtime included, so it runs on Windows as-is (no installation required).
+Download `SongConverter-v1.2.0.exe` from [Releases](https://github.com/taniniya/SongConverter/releases). It is a self-contained single file with the .NET runtime included, so it runs on Windows as-is (no installation required).
 
 ## Features
 
@@ -45,8 +45,13 @@ Converts TJA Dan files (from OpenTaiko, etc.) into Dan files compatible with Tai
 *Note: Specifying difficulty automatically was technically difficult due to the TJA structure. Please manually specify the difficulty by changing the "difficulty" value in "danSongs". (0: Easy, 1: Normal, 2: Hard, 3: Oni, 4: Ura-Oni)*
 By default, as long as you don't select a simulation folder, the Dan TJA will be split so that you don't have to specify the difficulty manually.
 
-## Changes in this custom version (v1.1.0)
+## Changes in this custom version
 
+### v1.2.0
+- **Modern UI redesign**: the top tab strip is gone, replaced by a left sidebar + header layout that looks like a recent Windows app
+- Rounded buttons, Windows 11 rounded window corners, a brighter red accent palette, more spacing and the Yu Gothic UI font
+
+### v1.1.0
 - **Larger progress panel**: a big always-visible panel above the log shows the current step in bold, plus percent, processed/total counts and elapsed time. The final state stays visible after the operation finishes
 - **SongSorter progress wired up**: the core already had a progress callback that the app never used; it now drives the progress bar. Song-list fetching also reports per-category progress
 - **Dark theme**: dark gray UI with taiko-red action buttons, a red underline on the selected tab, and a terminal-style log (green text on black)

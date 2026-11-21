@@ -112,6 +112,7 @@ public partial class MainForm : Form
         InitializeConvertAssetSelectorUi();
         InitializeCancelUi();
         ApplyTheme();
+        ApplyModernShell();
         InitializeProgressPanelUi();
         UpdateCategoryButtonText();
     }
@@ -1085,14 +1086,14 @@ public partial class MainForm : Form
         {
             Dock = DockStyle.Top,
             Height = 88,
-            BackColor = Color.FromArgb(38, 38, 44),
+            BackColor = Color.FromArgb(42, 42, 49),
             Padding = new Padding(10, 6, 10, 8)
         };
 
         _lblProgressCaption = new Label
         {
             Text = LanguageManager.GetString("ProgressCaption"),
-            ForeColor = Color.FromArgb(255, 107, 94),
+            ForeColor = Color.FromArgb(248, 113, 113),
             Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
             AutoSize = true,
             Location = new Point(10, 6)
@@ -1162,13 +1163,13 @@ public partial class MainForm : Form
     }
 
     // ===== カスタム: ダークテーマ =====
-    private static readonly Color ThemeBack = Color.FromArgb(30, 30, 34);
-    private static readonly Color ThemePanel = Color.FromArgb(38, 38, 44);
-    private static readonly Color ThemeInput = Color.FromArgb(22, 22, 26);
-    private static readonly Color ThemeText = Color.FromArgb(235, 235, 235);
-    private static readonly Color ThemeButton = Color.FromArgb(58, 58, 66);
-    private static readonly Color ThemeBorder = Color.FromArgb(90, 90, 100);
-    private static readonly Color ThemeAccent = Color.FromArgb(198, 47, 36);
+    private static readonly Color ThemeBack = Color.FromArgb(32, 32, 36);
+    private static readonly Color ThemePanel = Color.FromArgb(42, 42, 49);
+    private static readonly Color ThemeInput = Color.FromArgb(18, 18, 21);
+    private static readonly Color ThemeText = Color.FromArgb(250, 250, 250);
+    private static readonly Color ThemeButton = Color.FromArgb(50, 50, 58);
+    private static readonly Color ThemeBorder = Color.FromArgb(72, 72, 82);
+    private static readonly Color ThemeAccent = Color.FromArgb(229, 72, 77);
 
     private void ApplyTheme()
     {
@@ -1184,7 +1185,7 @@ public partial class MainForm : Form
         {
             b.BackColor = ThemeAccent;
             b.ForeColor = Color.White;
-            b.FlatAppearance.BorderColor = Color.FromArgb(140, 30, 22);
+            b.FlatAppearance.BorderColor = Color.FromArgb(150, 40, 45);
             b.Font = new Font(b.Font, FontStyle.Bold);
         }
 
@@ -1200,8 +1201,10 @@ public partial class MainForm : Form
 
         // ログはターミナル風（黒背景＋緑文字＋等幅フォント）
         logBox.BackColor = ThemeInput;
-        logBox.ForeColor = Color.FromArgb(126, 231, 135);
+        logBox.ForeColor = Color.FromArgb(74, 222, 128);
         logBox.Font = new Font("Consolas", 9.5f);
+
+        tabControl.Font = new Font("Yu Gothic UI", 9.5f);
 
         // タブはオーナードローでダーク化＋選択中タブに赤ライン
         tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
@@ -1245,6 +1248,7 @@ public partial class MainForm : Form
                     page.BackColor = ThemePanel;
                     page.ForeColor = ThemeText;
                     page.UseVisualStyleBackColor = false;
+                    page.Padding = new Padding(16, 12, 16, 12);
                     break;
                 case Label lbl:
                     lbl.ForeColor = ThemeText;
@@ -1309,6 +1313,160 @@ public partial class MainForm : Form
         public override Color ButtonSelectedGradientEnd => ThemeButton;
         public override Color ButtonPressedGradientBegin => ThemeButton;
         public override Color ButtonPressedGradientEnd => ThemeButton;
+    }
+
+    // ===== カスタム: モダンシェル（ヘッダー＋サイドバーナビ） =====
+    private Panel? _sidebarPanel;
+    private readonly List<Button> _navButtons = new();
+    private static readonly Font NavFont = new Font("Yu Gothic UI", 10.5f);
+    private static readonly Font NavFontBold = new Font("Yu Gothic UI", 10.5f, FontStyle.Bold);
+
+    [System.Runtime.InteropServices.DllImport("dwmapi.dll")]
+    private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int value, int size);
+
+    private void ApplyModernShell()
+    {
+        // ウィンドウの角を丸くする（Windows 11 の DWM 設定、失敗しても無視）
+        try
+        {
+            int pref = 2; // DWMWCP_ROUND
+            DwmSetWindowAttribute(this.Handle, 33, ref pref, sizeof(int));
+        }
+        catch { }
+
+        ClientSize = new Size(980, 680);
+        MinimumSize = new Size(880, 580);
+
+        var asm = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+        string versionText = asm != null ? $"v{asm.Major}.{asm.Minor}.{asm.Build}" : "";
+
+        // --- ヘッダー ---
+        var header = new Panel { Dock = DockStyle.Top, Height = 58, BackColor = ThemeBack };
+        var iconBox = new PictureBox { Location = new Point(16, 9), Size = new Size(40, 40), SizeMode = PictureBoxSizeMode.Zoom };
+        try
+        {
+            if (File.Exists("SongConverter.ico"))
+            {
+                using var ico = new Icon("SongConverter.ico", 40, 40);
+                iconBox.Image = ico.ToBitmap();
+            }
+        }
+        catch { }
+        var title = new Label
+        {
+            Text = "SongConverter",
+            Font = new Font("Yu Gothic UI", 15f, FontStyle.Bold),
+            ForeColor = ThemeText,
+            AutoSize = true,
+            Location = new Point(66, 7)
+        };
+        var subtitle = new Label
+        {
+            Text = "太鼓の達人 TJA ツール集 — SongSorter / DanGenerator / DanConvertor",
+            Font = new Font("Yu Gothic UI", 9f),
+            ForeColor = Color.FromArgb(161, 161, 170),
+            AutoSize = true,
+            Location = new Point(67, 35)
+        };
+        var version = new Label
+        {
+            Text = versionText,
+            Font = new Font("Yu Gothic UI", 9.5f),
+            ForeColor = Color.FromArgb(161, 161, 170),
+            AutoSize = true,
+            Location = new Point(900, 20),
+            Anchor = AnchorStyles.Top | AnchorStyles.Right
+        };
+        header.Controls.Add(iconBox);
+        header.Controls.Add(title);
+        header.Controls.Add(subtitle);
+        header.Controls.Add(version);
+        header.Resize += (s, e) => version.Location = new Point(header.Width - version.Width - 16, 20);
+
+        // --- サイドバー（上から並ぶよう逆順に追加する） ---
+        _sidebarPanel = new Panel { Dock = DockStyle.Left, Width = 178, BackColor = ThemeInput, Padding = new Padding(10, 12, 10, 12) };
+        var navKeys = new[] { "TabAddSongs", "TabSongSorter", "TabDanGenerator", "TabDanConvertor" };
+        for (int i = navKeys.Length - 1; i >= 0; i--)
+        {
+            int index = i;
+            var nav = new Button
+            {
+                Text = LanguageManager.GetString(navKeys[i]),
+                Dock = DockStyle.Top,
+                Height = 46,
+                FlatStyle = FlatStyle.Flat,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Padding = new Padding(14, 0, 0, 0),
+                Font = NavFont,
+                Tag = index,
+                Margin = new Padding(0, 0, 0, 6),
+                UseVisualStyleBackColor = false
+            };
+            nav.FlatAppearance.BorderSize = 0;
+            nav.FlatAppearance.MouseOverBackColor = ThemeButton;
+            nav.Click += (s, e) => { tabControl.SelectedIndex = index; };
+            _navButtons.Add(nav);
+            _sidebarPanel.Controls.Add(nav);
+        }
+        _navButtons.Reverse();
+        var sideVersion = new Label
+        {
+            Text = versionText,
+            Dock = DockStyle.Bottom,
+            ForeColor = Color.FromArgb(113, 113, 122),
+            Font = new Font("Yu Gothic UI", 8.5f),
+            TextAlign = ContentAlignment.MiddleLeft,
+            Height = 22
+        };
+        _sidebarPanel.Controls.Add(sideVersion);
+
+        // タブ見出しは隠し、サイドバーで切り替える
+        tabControl.SizeMode = TabSizeMode.Fixed;
+        tabControl.ItemSize = new Size(0, 1);
+        tabControl.Padding = new Point(0, 0);
+        tabControl.SelectedIndexChanged += (s, e) => UpdateNavSelection();
+        UpdateNavSelection();
+
+        // 主要ボタンを角丸に
+        foreach (var b in new[] { btnOrganize, btnGenerateDan, btnExecuteAddSongs, btnConvertDan })
+        {
+            ApplyRoundedRegion(b, 8);
+        }
+        foreach (var nav in _navButtons) ApplyRoundedRegion(nav, 8);
+
+        // ドッキング順（奥→手前）: メニュー → ステータス → ヘッダー → サイドバー → 本体
+        this.Controls.Add(header);
+        this.Controls.Add(_sidebarPanel);
+        this.Controls.SetChildIndex(splitContainer, 0);
+        this.Controls.SetChildIndex(_sidebarPanel, 1);
+        this.Controls.SetChildIndex(header, 2);
+        this.Controls.SetChildIndex(statusStrip, 3);
+        this.Controls.SetChildIndex(menuStrip, 4);
+    }
+
+    private void UpdateNavSelection()
+    {
+        for (int i = 0; i < _navButtons.Count; i++)
+        {
+            bool selected = tabControl.SelectedIndex == i;
+            _navButtons[i].BackColor = selected ? ThemeAccent : ThemeInput;
+            _navButtons[i].ForeColor = selected ? Color.White : ThemeText;
+            _navButtons[i].Font = selected ? NavFontBold : NavFont;
+        }
+    }
+
+    private static void ApplyRoundedRegion(Control c, int radius)
+    {
+        if (c.Width <= 0 || c.Height <= 0) return;
+        var rect = new Rectangle(0, 0, c.Width, c.Height);
+        using var path = new System.Drawing.Drawing2D.GraphicsPath();
+        int d = radius * 2;
+        path.AddArc(rect.X, rect.Y, d, d, 180, 90);
+        path.AddArc(rect.Right - d, rect.Y, d, d, 270, 90);
+        path.AddArc(rect.Right - d, rect.Bottom - d, d, d, 0, 90);
+        path.AddArc(rect.X, rect.Bottom - d, d, d, 90, 90);
+        path.CloseFigure();
+        c.Region = new Region(path);
     }
 
     private bool ShowCategoryDialog()
@@ -2009,6 +2167,11 @@ public partial class MainForm : Form
         tabSongSorter.Text = LanguageManager.GetString("TabSongSorter");
         tabDanGenerator.Text = LanguageManager.GetString("TabDanGenerator");
         tabDanConvertor.Text = LanguageManager.GetString("TabDanConvertor");
+        if (_navButtons.Count == tabControl.TabPages.Count)
+        {
+            for (int i = 0; i < _navButtons.Count; i++)
+                _navButtons[i].Text = tabControl.TabPages[i].Text;
+        }
 
         // Add Songs
         lblAddSongsFolder.Text = LanguageManager.GetString("SelectDownloadFolder");
