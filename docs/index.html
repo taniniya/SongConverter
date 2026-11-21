@@ -59,34 +59,6 @@
   .btn-ghost { background: var(--panel2); color: var(--text); border: 1px solid var(--border); }
   .hero .meta { margin-top: 16px; font-size: 13px; color: var(--sub); }
 
-  /* CSS mock of the app window */
-  .mock {
-    margin: 48px auto 0; max-width: 720px; text-align: left;
-    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
-    overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.45);
-  }
-  .mock-head {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 16px; border-bottom: 1px solid var(--border);
-    font-weight: 700;
-  }
-  .mock-head .ver { margin-left: auto; color: var(--sub); font-size: 12px; font-weight: 400; }
-  .mock-body { display: flex; min-height: 240px; }
-  .mock-side {
-    width: 170px; background: var(--input); padding: 12px 10px; flex-shrink: 0;
-  }
-  .mock-side div {
-    padding: 10px 12px; border-radius: 8px; font-size: 13px; color: var(--sub); margin-bottom: 6px;
-  }
-  .mock-side div.on { background: var(--accent); color: #fff; font-weight: 700; }
-  .mock-main { flex: 1; padding: 18px; }
-  .mock-main .bar-label { font-size: 12px; color: var(--sub); margin-bottom: 6px; }
-  .mock-bar { height: 14px; background: var(--input); border-radius: 7px; overflow: hidden; margin-bottom: 16px; }
-  .mock-bar i { display: block; height: 100%; width: 68%; background: var(--accent); }
-  .mock-line { height: 10px; background: var(--panel2); border-radius: 5px; margin-bottom: 10px; }
-  .mock-line.w60 { width: 60%; } .mock-line.w80 { width: 80%; } .mock-line.w45 { width: 45%; }
-  @media (max-width: 640px) { .mock-side { display: none; } }
-
   section { padding: 56px 0 8px; }
   h2 { font-size: 28px; margin: 0 0 8px; }
   h2 .accent { color: var(--accent); }
@@ -191,29 +163,6 @@
       <a class="btn btn-ghost" href="https://github.com/taniniya/SongConverter">GitHub リポジトリ</a>
     </div>
     <p class="meta">Windows 10 / 11（64bit）・ .NET ランタイム同梱でインストール不要 ・ 無料（MIT ライセンス）</p>
-
-    <div class="mock" aria-hidden="true">
-      <div class="mock-head">
-        <svg width="22" height="22" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#c62f24"/><circle cx="50" cy="50" r="33" fill="#f3e5cf"/></svg>
-        SongConverter
-        <span class="ver">v1.2.0</span>
-      </div>
-      <div class="mock-body">
-        <div class="mock-side">
-          <div class="on">曲追加</div>
-          <div>並び替え</div>
-          <div>段位生成</div>
-          <div>段位変換</div>
-        </div>
-        <div class="mock-main">
-          <div class="bar-label">進行状況 — 68%（処理中…）</div>
-          <div class="mock-bar"><i></i></div>
-          <div class="mock-line w80"></div>
-          <div class="mock-line w60"></div>
-          <div class="mock-line w45"></div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <section id="features">
