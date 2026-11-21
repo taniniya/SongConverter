@@ -1,0 +1,549 @@
+namespace SongConverter.UI;
+
+partial class MainForm
+{
+    private System.ComponentModel.IContainer components = null;
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && (components != null))
+        {
+            components.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+
+    private void InitializeComponent()
+    {
+        this.menuStrip = new System.Windows.Forms.MenuStrip();
+        this.menuLanguage = new System.Windows.Forms.ToolStripMenuItem();
+        this.menuJapanese = new System.Windows.Forms.ToolStripMenuItem();
+        this.menuEnglish = new System.Windows.Forms.ToolStripMenuItem();
+        this.menuCheckUpdate = new System.Windows.Forms.ToolStripMenuItem();
+        this.splitContainer = new System.Windows.Forms.SplitContainer();
+        this.tabControl = new System.Windows.Forms.TabControl();
+        this.tabAddSongs = new System.Windows.Forms.TabPage();
+        this.tabSongSorter = new System.Windows.Forms.TabPage();
+        this.tabDanGenerator = new System.Windows.Forms.TabPage();
+        this.tabDanConvertor = new System.Windows.Forms.TabPage();
+        this.statusStrip = new System.Windows.Forms.StatusStrip();
+        this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+        this.statusLanguageButton = new System.Windows.Forms.ToolStripDropDownButton();
+        this.statusJapaneseMenu = new System.Windows.Forms.ToolStripMenuItem();
+        this.statusEnglishMenu = new System.Windows.Forms.ToolStripMenuItem();
+        this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
+        this.logBox = new System.Windows.Forms.TextBox();
+
+        // Add Songs Tab Controls
+        this.lblAddSongsFolder = new System.Windows.Forms.Label();
+        this.txtAddSongsFolder = new System.Windows.Forms.TextBox();
+        this.btnBrowseAddSongsFolder = new System.Windows.Forms.Button();
+        this.btnExecuteAddSongs = new System.Windows.Forms.Button();
+
+        // Song Sorter Tab Controls
+        this.btnOrganize = new System.Windows.Forms.Button();
+        this.lblTempSongs = new System.Windows.Forms.Label();
+        this.txtTempSongs = new System.Windows.Forms.TextBox();
+        this.btnBrowseTemp = new System.Windows.Forms.Button();
+        this.lblTaikoRoot = new System.Windows.Forms.Label();
+        this.txtTaikoRoot = new System.Windows.Forms.TextBox();
+        this.btnBrowseRoot = new System.Windows.Forms.Button();
+
+        // Dan Generator Tab Controls
+        this.lblWikiUrl = new System.Windows.Forms.Label();
+        this.txtWikiUrl = new System.Windows.Forms.TextBox();
+        this.lblDanOutputFolder = new System.Windows.Forms.Label();
+        this.txtDanOutputFolder = new System.Windows.Forms.TextBox();
+        this.btnBrowseDanOutputFolder = new System.Windows.Forms.Button();
+        this.lblDanSongsPath = new System.Windows.Forms.Label();
+        this.txtDanSongsPath = new System.Windows.Forms.TextBox();
+        this.btnBrowseDanSongs = new System.Windows.Forms.Button();
+        this.btnGenerateDan = new System.Windows.Forms.Button();
+        this.lblWikiFilter = new System.Windows.Forms.Label();
+        this.txtWikiFilter = new System.Windows.Forms.TextBox();
+        this.lblDanGeneratorIndex = new System.Windows.Forms.Label();
+        this.txtDanGeneratorIndex = new System.Windows.Forms.TextBox();
+        this.txtDanGeneratorIndex.Visible = false;
+        this.lblDanGeneratorIndex.Visible = false;
+
+        // Dan Convertor Tab Controls
+        this.lblTjaFile = new System.Windows.Forms.Label();
+        this.txtTjaFile = new System.Windows.Forms.TextBox();
+        this.btnBrowseTjaFile = new System.Windows.Forms.Button();
+        this.lblDanConvertOutputFolder = new System.Windows.Forms.Label();
+        this.txtDanConvertOutputFolder = new System.Windows.Forms.TextBox();
+        this.btnBrowseDanConvertOutputFolder = new System.Windows.Forms.Button();
+        this.lblDanConvertSimu = new System.Windows.Forms.Label();
+        this.txtDanConvertSimu = new System.Windows.Forms.TextBox();
+        this.btnBrowseDanConvertSimu = new System.Windows.Forms.Button();
+        this.lblDanConvertorIndex = new System.Windows.Forms.Label();
+        this.txtDanConvertorIndex = new System.Windows.Forms.TextBox();
+        this.lblDanMiniPlateText = new System.Windows.Forms.Label();
+        this.txtDanMiniPlateText = new System.Windows.Forms.TextBox();
+        this.btnConvertDan = new System.Windows.Forms.Button();
+
+        this.tabControl.SuspendLayout();
+        this.tabAddSongs.SuspendLayout();
+        this.tabSongSorter.SuspendLayout();
+        this.tabDanGenerator.SuspendLayout();
+        this.tabDanConvertor.SuspendLayout();
+        this.splitContainer.Panel1.SuspendLayout();
+        this.splitContainer.Panel2.SuspendLayout();
+        this.splitContainer.SuspendLayout();
+        this.statusStrip.SuspendLayout();
+        this.menuStrip.SuspendLayout();
+        this.SuspendLayout();
+
+        this.menuCheckUpdate = new System.Windows.Forms.ToolStripMenuItem();
+        
+        // menuStrip
+        this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.menuLanguage, this.menuCheckUpdate });
+        this.menuStrip.Location = new System.Drawing.Point(0, 0);
+        this.menuStrip.Name = "menuStrip";
+        this.menuStrip.Size = new System.Drawing.Size(800, 24);
+        this.menuStrip.TabIndex = 3;
+        
+        // menuCheckUpdate
+        this.menuCheckUpdate.Name = "menuCheckUpdate";
+        this.menuCheckUpdate.Text = "アップデートを確認";
+        this.menuCheckUpdate.Click += MenuCheckUpdate_Click;
+
+        // splitContainer
+        this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+        this.splitContainer.Location = new System.Drawing.Point(0, 24);
+        this.splitContainer.Name = "splitContainer";
+        this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+        this.splitContainer.Size = new System.Drawing.Size(700, 654);
+        this.splitContainer.SplitterDistance = 460;
+        this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+        this.splitContainer.TabIndex = 0;
+        this.splitContainer.Panel1.Controls.Add(this.tabControl);
+        this.splitContainer.Panel2.Controls.Add(this.logBox);
+
+        // menuLanguage
+        this.menuLanguage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.menuJapanese, this.menuEnglish });
+        this.menuLanguage.Name = "menuLanguage";
+        this.menuLanguage.Text = "Language";
+
+        // menuJapanese
+        this.menuJapanese.Name = "menuJapanese";
+        this.menuJapanese.Text = "日本語 (Japanese)";
+
+        // menuEnglish
+        this.menuEnglish.Name = "menuEnglish";
+        this.menuEnglish.Text = "English";
+
+        // tabControl
+        this.tabControl.Controls.Add(this.tabAddSongs);
+        this.tabControl.Controls.Add(this.tabSongSorter);
+        this.tabControl.Controls.Add(this.tabDanGenerator);
+        this.tabControl.Controls.Add(this.tabDanConvertor);
+        this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+        this.tabControl.Location = new System.Drawing.Point(0, 0);
+        this.tabControl.Name = "tabControl";
+        this.tabControl.SelectedIndex = 0;
+        this.tabControl.TabIndex = 0;
+
+        // tabAddSongs
+        this.tabAddSongs.BackColor = System.Drawing.Color.White;
+        this.tabAddSongs.Controls.Add(this.btnExecuteAddSongs);
+        this.tabAddSongs.Controls.Add(this.btnBrowseAddSongsFolder);
+        this.tabAddSongs.Controls.Add(this.txtAddSongsFolder);
+        this.tabAddSongs.Controls.Add(this.lblAddSongsFolder);
+        this.tabAddSongs.Location = new System.Drawing.Point(4, 24);
+        this.tabAddSongs.Name = "tabAddSongs";
+        this.tabAddSongs.Padding = new System.Windows.Forms.Padding(15);
+        this.tabAddSongs.Size = new System.Drawing.Size(676, 372);
+        this.tabAddSongs.TabIndex = 0;
+        this.tabAddSongs.Text = "AddSongs";
+
+        this.lblAddSongsFolder.Location = new System.Drawing.Point(20, 20);
+        this.lblAddSongsFolder.Text = "楽曲をダウンロードするフォルダを選択:";
+        this.lblAddSongsFolder.Size = new System.Drawing.Size(400, 20);
+        this.lblAddSongsFolder.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtAddSongsFolder.Location = new System.Drawing.Point(20, 45);
+        this.txtAddSongsFolder.Size = new System.Drawing.Size(530, 23);
+        this.txtAddSongsFolder.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnBrowseAddSongsFolder.Location = new System.Drawing.Point(560, 43);
+        this.btnBrowseAddSongsFolder.Size = new System.Drawing.Size(90, 27);
+        this.btnBrowseAddSongsFolder.Text = "参照...";
+        this.btnBrowseAddSongsFolder.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnExecuteAddSongs.Location = new System.Drawing.Point(20, 100);
+        this.btnExecuteAddSongs.Size = new System.Drawing.Size(200, 45);
+        this.btnExecuteAddSongs.Text = "曲追加実行";
+        this.btnExecuteAddSongs.BackColor = System.Drawing.Color.FromArgb(0, 153, 255);
+        this.btnExecuteAddSongs.ForeColor = System.Drawing.Color.White;
+        this.btnExecuteAddSongs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        this.btnExecuteAddSongs.Font = new System.Drawing.Font("Noto Sans", 10F, System.Drawing.FontStyle.Bold);
+        this.btnExecuteAddSongs.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        // tabSongSorter
+        this.tabSongSorter.BackColor = System.Drawing.Color.White;
+        this.tabSongSorter.Controls.Add(this.btnBrowseRoot);
+        this.tabSongSorter.Controls.Add(this.txtTaikoRoot);
+        this.tabSongSorter.Controls.Add(this.lblTaikoRoot);
+        this.tabSongSorter.Controls.Add(this.btnBrowseTemp);
+        this.tabSongSorter.Controls.Add(this.txtTempSongs);
+        this.tabSongSorter.Controls.Add(this.lblTempSongs);
+        this.tabSongSorter.Controls.Add(this.btnOrganize);
+        this.tabSongSorter.Location = new System.Drawing.Point(4, 24);
+        this.tabSongSorter.Name = "tabSongSorter";
+        this.tabSongSorter.Padding = new System.Windows.Forms.Padding(15);
+        this.tabSongSorter.Size = new System.Drawing.Size(676, 372);
+        this.tabSongSorter.TabIndex = 1;
+        this.tabSongSorter.Text = "SongSorter";
+
+        this.lblTempSongs.Location = new System.Drawing.Point(20, 20);
+        this.lblTempSongs.Text = "コピー元のSongsフォルダを選択:";
+        this.lblTempSongs.Size = new System.Drawing.Size(400, 20);
+        this.lblTempSongs.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtTempSongs.Location = new System.Drawing.Point(20, 45);
+        this.txtTempSongs.Size = new System.Drawing.Size(530, 23);
+        this.txtTempSongs.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnBrowseTemp.Location = new System.Drawing.Point(560, 43);
+        this.btnBrowseTemp.Size = new System.Drawing.Size(90, 27);
+        this.btnBrowseTemp.Text = "参照...";
+        this.btnBrowseTemp.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblTaikoRoot.Location = new System.Drawing.Point(20, 90);
+        this.lblTaikoRoot.Text = "コピー先のSongsフォルダを選択:";
+        this.lblTaikoRoot.Size = new System.Drawing.Size(400, 20);
+        this.lblTaikoRoot.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtTaikoRoot.Location = new System.Drawing.Point(20, 115);
+        this.txtTaikoRoot.Size = new System.Drawing.Size(530, 23);
+        this.txtTaikoRoot.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnBrowseRoot.Location = new System.Drawing.Point(560, 113);
+        this.btnBrowseRoot.Size = new System.Drawing.Size(90, 27);
+        this.btnBrowseRoot.Text = "参照...";
+        this.btnBrowseRoot.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnOrganize.Location = new System.Drawing.Point(20, 170);
+        this.btnOrganize.Size = new System.Drawing.Size(180, 45);
+        this.btnOrganize.Text = "並び替え開始";
+        this.btnOrganize.BackColor = System.Drawing.Color.FromArgb(0, 153, 255);
+        this.btnOrganize.ForeColor = System.Drawing.Color.White;
+        this.btnOrganize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        this.btnOrganize.Font = new System.Drawing.Font("Noto Sans", 10F, System.Drawing.FontStyle.Bold);
+        this.btnOrganize.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        // tabDanGenerator
+        this.tabDanGenerator.BackColor = System.Drawing.Color.White;
+        this.tabDanGenerator.Controls.Add(this.txtDanGeneratorIndex);
+        this.tabDanGenerator.Controls.Add(this.lblDanGeneratorIndex);
+        this.tabDanGenerator.Controls.Add(this.btnBrowseDanOutputFolder);
+        this.tabDanGenerator.Controls.Add(this.txtDanOutputFolder);
+        this.tabDanGenerator.Controls.Add(this.lblDanOutputFolder);
+        this.tabDanGenerator.Controls.Add(this.btnGenerateDan);
+        this.tabDanGenerator.Controls.Add(this.btnBrowseDanSongs);
+        this.tabDanGenerator.Controls.Add(this.txtDanSongsPath);
+        this.tabDanGenerator.Controls.Add(this.lblDanSongsPath);
+        this.tabDanGenerator.Controls.Add(this.txtWikiFilter);
+        this.tabDanGenerator.Controls.Add(this.lblWikiFilter);
+        this.tabDanGenerator.Controls.Add(this.txtWikiUrl);
+        this.tabDanGenerator.Controls.Add(this.lblWikiUrl);
+        this.tabDanGenerator.Location = new System.Drawing.Point(4, 24);
+        this.tabDanGenerator.Name = "tabDanGenerator";
+        this.tabDanGenerator.Padding = new System.Windows.Forms.Padding(15);
+        this.tabDanGenerator.Size = new System.Drawing.Size(676, 372);
+        this.tabDanGenerator.TabIndex = 2;
+        this.tabDanGenerator.Text = "DanGenerator";
+
+        this.lblWikiUrl.Location = new System.Drawing.Point(20, 20);
+        this.lblWikiUrl.Text = "太鼓Wikiの段位URL:";
+        this.lblWikiUrl.Size = new System.Drawing.Size(250, 20);
+        this.lblWikiUrl.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtWikiUrl.Location = new System.Drawing.Point(20, 45);
+        this.txtWikiUrl.Size = new System.Drawing.Size(630, 23);
+        this.txtWikiUrl.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblWikiFilter.Location = new System.Drawing.Point(20, 85);
+        this.lblWikiFilter.Text = "特定の段位のみ抽出:";
+        this.lblWikiFilter.Size = new System.Drawing.Size(150, 20);
+        this.lblWikiFilter.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtWikiFilter.Location = new System.Drawing.Point(20, 110);
+        this.txtWikiFilter.Size = new System.Drawing.Size(165, 23);
+        this.txtWikiFilter.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblDanGeneratorIndex.Location = new System.Drawing.Point(180, 85);
+        this.lblDanGeneratorIndex.Text = "DanIndex:";
+        this.lblDanGeneratorIndex.Size = new System.Drawing.Size(100, 20);
+        this.lblDanGeneratorIndex.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtDanGeneratorIndex.Location = new System.Drawing.Point(180, 110);
+        this.txtDanGeneratorIndex.Size = new System.Drawing.Size(100, 23);
+        this.txtDanGeneratorIndex.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblDanOutputFolder.Location = new System.Drawing.Point(200, 85);
+        this.lblDanOutputFolder.Text = "出力フォルダ:";
+        this.lblDanOutputFolder.Size = new System.Drawing.Size(200, 20);
+        this.lblDanOutputFolder.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtDanOutputFolder.Location = new System.Drawing.Point(200, 110);
+        this.txtDanOutputFolder.Size = new System.Drawing.Size(350, 23);
+        this.txtDanOutputFolder.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnBrowseDanOutputFolder.Location = new System.Drawing.Point(560, 108);
+        this.btnBrowseDanOutputFolder.Size = new System.Drawing.Size(90, 27);
+        this.btnBrowseDanOutputFolder.Text = "参照...";
+        this.btnBrowseDanOutputFolder.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblDanSongsPath.Location = new System.Drawing.Point(20, 145);
+        this.lblDanSongsPath.Text = "Songsフォルダを選択:";
+        this.lblDanSongsPath.Size = new System.Drawing.Size(400, 20);
+        this.lblDanSongsPath.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtDanSongsPath.Location = new System.Drawing.Point(20, 170);
+        this.txtDanSongsPath.Size = new System.Drawing.Size(530, 23);
+        this.txtDanSongsPath.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnBrowseDanSongs.Location = new System.Drawing.Point(560, 168);
+        this.btnBrowseDanSongs.Size = new System.Drawing.Size(90, 27);
+        this.btnBrowseDanSongs.Text = "参照...";
+        this.btnBrowseDanSongs.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnGenerateDan.Location = new System.Drawing.Point(20, 220);
+        this.btnGenerateDan.Size = new System.Drawing.Size(200, 45);
+        this.btnGenerateDan.Text = "段位生成";
+        this.btnGenerateDan.BackColor = System.Drawing.Color.FromArgb(0, 153, 255);
+        this.btnGenerateDan.ForeColor = System.Drawing.Color.White;
+        this.btnGenerateDan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        this.btnGenerateDan.Font = new System.Drawing.Font("Noto Sans", 10F, System.Drawing.FontStyle.Bold);
+        this.btnGenerateDan.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        // tabDanConvertor
+        this.tabDanConvertor.BackColor = System.Drawing.Color.White;
+        this.tabDanConvertor.AllowDrop = true;
+        this.tabDanConvertor.Controls.Add(this.txtDanMiniPlateText);
+        this.tabDanConvertor.Controls.Add(this.lblDanMiniPlateText);
+        this.tabDanConvertor.Controls.Add(this.txtDanConvertorIndex);
+        this.tabDanConvertor.Controls.Add(this.lblDanConvertorIndex);
+        this.tabDanConvertor.Controls.Add(this.btnBrowseDanConvertSimu);
+        this.tabDanConvertor.Controls.Add(this.txtDanConvertSimu);
+        this.tabDanConvertor.Controls.Add(this.lblDanConvertSimu);
+        this.tabDanConvertor.Controls.Add(this.btnBrowseDanConvertOutputFolder);
+        this.tabDanConvertor.Controls.Add(this.txtDanConvertOutputFolder);
+        this.tabDanConvertor.Controls.Add(this.lblDanConvertOutputFolder);
+        this.tabDanConvertor.Controls.Add(this.btnConvertDan);
+        this.tabDanConvertor.Controls.Add(this.btnBrowseTjaFile);
+        this.tabDanConvertor.Controls.Add(this.txtTjaFile);
+        this.tabDanConvertor.Controls.Add(this.lblTjaFile);
+        this.tabDanConvertor.Location = new System.Drawing.Point(4, 24);
+        this.tabDanConvertor.Name = "tabDanConvertor";
+        this.tabDanConvertor.Padding = new System.Windows.Forms.Padding(15);
+        this.tabDanConvertor.Size = new System.Drawing.Size(676, 372);
+        this.tabDanConvertor.TabIndex = 3;
+        this.tabDanConvertor.Text = "DanConvertor";
+
+        this.lblTjaFile.Location = new System.Drawing.Point(20, 20);
+        this.lblTjaFile.Text = "元となるTJAファイル:";
+        this.lblTjaFile.Size = new System.Drawing.Size(200, 20);
+        this.lblTjaFile.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtTjaFile.Location = new System.Drawing.Point(20, 45);
+        this.txtTjaFile.Size = new System.Drawing.Size(530, 23);
+        this.txtTjaFile.AllowDrop = true;
+        this.txtTjaFile.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnBrowseTjaFile.Location = new System.Drawing.Point(560, 43);
+        this.btnBrowseTjaFile.Size = new System.Drawing.Size(90, 27);
+        this.btnBrowseTjaFile.Text = "参照...";
+        this.btnBrowseTjaFile.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblDanConvertOutputFolder.Location = new System.Drawing.Point(20, 85);
+        this.lblDanConvertOutputFolder.Text = "出力フォルダ:";
+        this.lblDanConvertOutputFolder.Size = new System.Drawing.Size(150, 20);
+        this.lblDanConvertOutputFolder.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtDanConvertOutputFolder.Location = new System.Drawing.Point(20, 110);
+        this.txtDanConvertOutputFolder.Size = new System.Drawing.Size(360, 23);
+        this.txtDanConvertOutputFolder.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnBrowseDanConvertOutputFolder.Location = new System.Drawing.Point(390, 108);
+        this.btnBrowseDanConvertOutputFolder.Size = new System.Drawing.Size(80, 27);
+        this.btnBrowseDanConvertOutputFolder.Text = "参照...";
+        this.btnBrowseDanConvertOutputFolder.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblDanConvertorIndex.Location = new System.Drawing.Point(480, 85);
+        this.lblDanConvertorIndex.Text = "DanIndex:";
+        this.lblDanConvertorIndex.Size = new System.Drawing.Size(70, 20);
+        this.lblDanConvertorIndex.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtDanConvertorIndex.Location = new System.Drawing.Point(480, 110);
+        this.txtDanConvertorIndex.Size = new System.Drawing.Size(70, 23);
+        this.txtDanConvertorIndex.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblDanMiniPlateText.Location = new System.Drawing.Point(560, 85);
+        this.lblDanMiniPlateText.Text = "ミニプレート文字:";
+        this.lblDanMiniPlateText.Size = new System.Drawing.Size(100, 20);
+        this.lblDanMiniPlateText.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtDanMiniPlateText.Location = new System.Drawing.Point(560, 110);
+        this.txtDanMiniPlateText.Size = new System.Drawing.Size(100, 23);
+        this.txtDanMiniPlateText.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.lblDanConvertSimu.Location = new System.Drawing.Point(20, 145);
+        this.lblDanConvertSimu.Text = "Songsフォルダ (省略可・フォールバック用):";
+        this.lblDanConvertSimu.Size = new System.Drawing.Size(400, 20);
+        this.lblDanConvertSimu.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        this.txtDanConvertSimu.Location = new System.Drawing.Point(20, 170);
+        this.txtDanConvertSimu.Size = new System.Drawing.Size(530, 23);
+        this.txtDanConvertSimu.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnBrowseDanConvertSimu.Location = new System.Drawing.Point(560, 168);
+        this.btnBrowseDanConvertSimu.Size = new System.Drawing.Size(90, 27);
+        this.btnBrowseDanConvertSimu.Text = "参照...";
+        this.btnBrowseDanConvertSimu.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
+
+        this.btnConvertDan.Location = new System.Drawing.Point(20, 220);
+        this.btnConvertDan.Size = new System.Drawing.Size(200, 45);
+        this.btnConvertDan.Text = "変換実行";
+        this.btnConvertDan.BackColor = System.Drawing.Color.FromArgb(0, 153, 255);
+        this.btnConvertDan.ForeColor = System.Drawing.Color.White;
+        this.btnConvertDan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        this.btnConvertDan.Font = new System.Drawing.Font("Noto Sans", 10F, System.Drawing.FontStyle.Bold);
+        this.btnConvertDan.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
+
+        // logBox
+        this.logBox.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+        this.logBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+        this.logBox.Dock = System.Windows.Forms.DockStyle.Fill;
+        this.logBox.Font = new System.Drawing.Font("Consolas", 9F);
+        this.logBox.ForeColor = System.Drawing.Color.LightGray;
+        this.logBox.Multiline = true;
+        this.logBox.Name = "logBox";
+        this.logBox.ReadOnly = true;
+        this.logBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+        this.logBox.TabIndex = 1;
+
+        // statusStrip
+        this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.statusLabel, this.statusLanguageButton, this.progressBar });
+        this.statusStrip.Location = new System.Drawing.Point(0, 599);
+        this.statusStrip.Name = "statusStrip";
+        this.statusStrip.Size = new System.Drawing.Size(684, 22);
+        this.statusStrip.TabIndex = 2;
+
+        this.statusLabel.Name = "statusLabel";
+        this.statusLabel.Size = new System.Drawing.Size(467, 17);
+        this.statusLabel.Spring = true;
+        this.statusLabel.Text = "準備完了";
+
+        // statusLanguageButton
+        this.statusLanguageButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.statusJapaneseMenu, this.statusEnglishMenu });
+        this.statusLanguageButton.Name = "statusLanguageButton";
+        this.statusLanguageButton.Size = new System.Drawing.Size(100, 20);
+        this.statusLanguageButton.Text = "Language";
+
+        // statusJapaneseMenu
+        this.statusJapaneseMenu.Name = "statusJapaneseMenu";
+        this.statusJapaneseMenu.Text = "日本語 (Japanese)";
+
+        // statusEnglishMenu
+        this.statusEnglishMenu.Name = "statusEnglishMenu";
+        this.statusEnglishMenu.Text = "English";
+
+        this.progressBar.Name = "progressBar";
+        this.progressBar.Size = new System.Drawing.Size(100, 16);
+        this.progressBar.Visible = false;
+
+        // MainForm
+        this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        this.ClientSize = new System.Drawing.Size(666, 590);
+        this.MinimumSize = new System.Drawing.Size(666, 590);
+        this.Controls.Add(this.splitContainer);
+        this.Controls.Add(this.statusStrip);
+        this.Controls.Add(this.menuStrip);
+        this.MainMenuStrip = this.menuStrip;
+        this.Font = new System.Drawing.Font("Noto Sans", 9F);
+        this.Name = "MainForm";
+        this.Text = "SongConverter";
+
+        this.tabControl.ResumeLayout(false);
+        this.tabAddSongs.ResumeLayout(false);
+        this.tabAddSongs.PerformLayout();
+        this.tabSongSorter.ResumeLayout(false);
+        this.tabSongSorter.PerformLayout();
+        this.tabDanGenerator.ResumeLayout(false);
+        this.tabDanGenerator.PerformLayout();
+        this.tabDanConvertor.ResumeLayout(false);
+        this.tabDanConvertor.PerformLayout();
+        this.splitContainer.Panel1.ResumeLayout(false);
+        this.splitContainer.Panel2.ResumeLayout(false);
+        this.splitContainer.Panel2.PerformLayout();
+        this.splitContainer.ResumeLayout(false);
+        this.statusStrip.ResumeLayout(false);
+        this.ResumeLayout(false);
+        this.PerformLayout();
+    }
+
+    private System.Windows.Forms.SplitContainer splitContainer;
+    private System.Windows.Forms.TabControl tabControl;
+    private System.Windows.Forms.MenuStrip menuStrip;
+    private System.Windows.Forms.ToolStripMenuItem menuLanguage;
+    private System.Windows.Forms.ToolStripMenuItem menuJapanese;
+    private System.Windows.Forms.ToolStripMenuItem menuEnglish;
+    private System.Windows.Forms.ToolStripMenuItem menuCheckUpdate;
+    private System.Windows.Forms.TabPage tabSongSorter;
+    private System.Windows.Forms.TabPage tabDanGenerator;
+    private System.Windows.Forms.TabPage tabAddSongs;
+    private System.Windows.Forms.TabPage tabDanConvertor;
+    private System.Windows.Forms.TextBox logBox;
+    private System.Windows.Forms.StatusStrip statusStrip;
+    private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+    private System.Windows.Forms.ToolStripDropDownButton statusLanguageButton;
+    private System.Windows.Forms.ToolStripMenuItem statusJapaneseMenu;
+    private System.Windows.Forms.ToolStripMenuItem statusEnglishMenu;
+    private System.Windows.Forms.ToolStripProgressBar progressBar;
+
+    private System.Windows.Forms.Button btnOrganize;
+    private System.Windows.Forms.Label lblTempSongs;
+    private System.Windows.Forms.TextBox txtTempSongs;
+    private System.Windows.Forms.Button btnBrowseTemp;
+    private System.Windows.Forms.Label lblTaikoRoot;
+    private System.Windows.Forms.TextBox txtTaikoRoot;
+    private System.Windows.Forms.Button btnBrowseRoot;
+
+    private System.Windows.Forms.Label lblWikiUrl;
+    private System.Windows.Forms.TextBox txtWikiUrl;
+    private System.Windows.Forms.Label lblDanOutputFolder;
+    private System.Windows.Forms.TextBox txtDanOutputFolder;
+    private System.Windows.Forms.Button btnBrowseDanOutputFolder;
+    private System.Windows.Forms.Button btnGenerateDan;
+    private System.Windows.Forms.Label lblWikiFilter;
+    private System.Windows.Forms.TextBox txtWikiFilter;
+    private System.Windows.Forms.Label lblDanGeneratorIndex;
+    private System.Windows.Forms.TextBox txtDanGeneratorIndex;
+    private System.Windows.Forms.Label lblDanSongsPath;
+    private System.Windows.Forms.TextBox txtDanSongsPath;
+    private System.Windows.Forms.Button btnBrowseDanSongs;
+
+    private System.Windows.Forms.Label lblAddSongsFolder;
+    private System.Windows.Forms.TextBox txtAddSongsFolder;
+    private System.Windows.Forms.Button btnBrowseAddSongsFolder;
+    private System.Windows.Forms.Button btnExecuteAddSongs;
+
+    private System.Windows.Forms.Label lblTjaFile;
+    private System.Windows.Forms.TextBox txtTjaFile;
+    private System.Windows.Forms.Button btnBrowseTjaFile;
+    private System.Windows.Forms.Label lblDanConvertOutputFolder;
+    private System.Windows.Forms.TextBox txtDanConvertOutputFolder;
+    private System.Windows.Forms.Button btnBrowseDanConvertOutputFolder;
+    private System.Windows.Forms.Label lblDanConvertSimu;
+    private System.Windows.Forms.TextBox txtDanConvertSimu;
+    private System.Windows.Forms.Button btnBrowseDanConvertSimu;
+    private System.Windows.Forms.Label lblDanConvertorIndex;
+    private System.Windows.Forms.TextBox txtDanConvertorIndex;
+    private System.Windows.Forms.Label lblDanMiniPlateText;
+    private System.Windows.Forms.TextBox txtDanMiniPlateText;
+    private System.Windows.Forms.Button btnConvertDan;
+}
