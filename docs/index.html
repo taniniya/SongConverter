@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SongConverter | 太鼓の達人 TJA ツール（SongSorter / DanGenerator / DanConvertor）</title>
+<meta name="description" content="SongConverter は太鼓の達人の TJA ファイルを扱う Windows 向けツールです。曲フォルダの自動並び替え（SongSorter）、段位認定コースの生成（DanGenerator）、OpenTaiko 段位の変換（DanConvertor）を1つのアプリで。" />
+<style>
+  :root {
+    --bg: #17171b;
+    --panel: #232329;
+    --panel2: #2a2a31;
+    --input: #121215;
+    --text: #fafafa;
+    --sub: #a1a1aa;
+    --border: #3f3f46;
+    --accent: #e5484d;
+    --accent-dark: #b3373c;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Yu Gothic UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(23,23,27,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  header.site .wrap {
+    display: flex; align-items: center; gap: 14px; height: 60px;
+  }
+  header.site .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; }
+  header.site nav { margin-left: auto; display: flex; gap: 22px; }
+  header.site nav a { color: var(--sub); text-decoration: none; font-size: 14px; }
+  header.site nav a:hover { color: var(--text); }
+  @media (max-width: 640px) { header.site nav { display: none; } }
+
+  .hero { text-align: center; padding: 72px 0 56px; }
+  .hero .drum { margin-bottom: 8px; }
+  .hero h1 { font-size: 44px; margin: 10px 0 6px; letter-spacing: 0.02em; }
+  .hero .tag { font-size: 19px; color: var(--text); margin: 0 0 10px; }
+  .hero .desc { color: var(--sub); max-width: 640px; margin: 0 auto 32px; }
+  .btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 14px 30px; border-radius: 999px;
+    font-weight: 700; font-size: 16px; text-decoration: none;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-ghost { background: var(--panel2); color: var(--text); border: 1px solid var(--border); }
+  .hero .meta { margin-top: 16px; font-size: 13px; color: var(--sub); }
+
+  /* CSS mock of the app window */
+  .mock {
+    margin: 48px auto 0; max-width: 720px; text-align: left;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+  }
+  .mock-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    font-weight: 700;
+  }
+  .mock-head .ver { margin-left: auto; color: var(--sub); font-size: 12px; font-weight: 400; }
+  .mock-body { display: flex; min-height: 240px; }
+  .mock-side {
+    width: 170px; background: var(--input); padding: 12px 10px; flex-shrink: 0;
+  }
+  .mock-side div {
+    padding: 10px 12px; border-radius: 8px; font-size: 13px; color: var(--sub); margin-bottom: 6px;
+  }
+  .mock-side div.on { background: var(--accent); color: #fff; font-weight: 700; }
+  .mock-main { flex: 1; padding: 18px; }
+  .mock-main .bar-label { font-size: 12px; color: var(--sub); margin-bottom: 6px; }
+  .mock-bar { height: 14px; background: var(--input); border-radius: 7px; overflow: hidden; margin-bottom: 16px; }
+  .mock-bar i { display: block; height: 100%; width: 68%; background: var(--accent); }
+  .mock-line { height: 10px; background: var(--panel2); border-radius: 5px; margin-bottom: 10px; }
+  .mock-line.w60 { width: 60%; } .mock-line.w80 { width: 80%; } .mock-line.w45 { width: 45%; }
+  @media (max-width: 640px) { .mock-side { display: none; } }
+
+  section { padding: 56px 0 8px; }
+  h2 { font-size: 28px; margin: 0 0 8px; }
+  h2 .accent { color: var(--accent); }
+  .sec-sub { color: var(--sub); margin: 0 0 28px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 18px; }
+  .card h3 .en { color: var(--accent); font-size: 13px; display: block; letter-spacing: 0.08em; }
+  .card p { margin: 0; color: var(--sub); font-size: 14px; }
+  .card ol, .card ul { margin: 8px 0 0; padding-left: 20px; color: var(--sub); font-size: 14px; }
+
+  .ver-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px; margin-bottom: 16px;
+  }
+  .ver-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .ver-head .v { font-size: 22px; font-weight: 700; }
+  .badge {
+    background: var(--accent); color: #fff; font-size: 12px; font-weight: 700;
+    padding: 2px 10px; border-radius: 999px;
+  }
+  .ver-head .date { color: var(--sub); font-size: 13px; }
+  .ver-card ul { color: var(--sub); font-size: 14px; margin: 10px 0 16px; padding-left: 20px; }
+  .ver-dl { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-small {
+    display: inline-block; padding: 9px 20px; border-radius: 999px;
+    font-weight: 700; font-size: 14px; text-decoration: none;
+  }
+  .note {
+    background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+    border-radius: 10px; padding: 16px 20px; color: var(--sub); font-size: 14px; margin-top: 8px;
+  }
+  .note strong { color: var(--text); }
+
+  footer.site {
+    margin-top: 64px; border-top: 1px solid var(--border);
+    padding: 28px 0 40px; color: var(--sub); font-size: 13px; text-align: center;
+  }
+  footer.site a { color: var(--sub); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#">
+      <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" fill="#c62f24"/>
+        <circle cx="50" cy="50" r="33" fill="#f3e5cf"/>
+        <g fill="#26221f">
+          <circle cx="50" cy="14" r="4"/><circle cx="50" cy="86" r="4"/>
+          <circle cx="14" cy="50" r="4"/><circle cx="86" cy="50" r="4"/>
+          <circle cx="25" cy="25" r="4"/><circle cx="75" cy="25" r="4"/>
+          <circle cx="25" cy="75" r="4"/><circle cx="75" cy="75" r="4"/>
+        </g>
+        <path d="M38 62 L66 34" stroke="#8a5a2b" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="70" cy="30" r="7" fill="#d9a05b"/>
+        <path d="M60 58 q4 -14 16 -12 l0 8 q-8 -2 -10 6 z" fill="#26221f"/>
+        <rect x="57" y="56" width="4.5" height="20" rx="2" fill="#26221f"/>
+      </svg>
+      SongConverter
+    </a>
+    <nav>
+      <a href="#features">機能</a>
+      <a href="#usage">使い方</a>
+      <a href="#download">ダウンロード</a>
+      <a href="https://github.com/taniniya/SongConverter">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="drum">
+      <svg width="92" height="92" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" fill="#c62f24"/>
+        <circle cx="50" cy="50" r="33" fill="#f3e5cf"/>
+        <g fill="#26221f">
+          <circle cx="50" cy="14" r="4"/><circle cx="50" cy="86" r="4"/>
+          <circle cx="14" cy="50" r="4"/><circle cx="86" cy="50" r="4"/>
+          <circle cx="25" cy="25" r="4"/><circle cx="75" cy="25" r="4"/>
+          <circle cx="25" cy="75" r="4"/><circle cx="75" cy="75" r="4"/>
+        </g>
+        <path d="M38 62 L66 34" stroke="#8a5a2b" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="70" cy="30" r="7" fill="#d9a05b"/>
+        <path d="M60 58 q4 -14 16 -12 l0 8 q-8 -2 -10 6 z" fill="#26221f"/>
+        <rect x="57" y="56" width="4.5" height="20" rx="2" fill="#26221f"/>
+      </svg>
+    </div>
+    <h1>SongConverter</h1>
+    <p class="tag">太鼓の達人 TJA ファイル管理ツール</p>
+    <p class="desc">
+      曲フォルダの自動並び替え、段位認定コースの生成、OpenTaiko 段位の変換。
+      TJA 周りの3つの作業を、1つの Windows アプリで行えます。
+    </p>
+    <div class="btns">
+      <a class="btn btn-primary" href="https://github.com/taniniya/SongConverter/releases/download/v1.2.0/SongConverter-v1.2.0.exe">最新版 v1.2.0 をダウンロード</a>
+      <a class="btn btn-ghost" href="https://github.com/taniniya/SongConverter">GitHub リポジトリ</a>
+    </div>
+    <p class="meta">Windows 10 / 11（64bit）・ .NET ランタイム同梱でインストール不要 ・ 無料（MIT ライセンス）</p>
+
+    <div class="mock" aria-hidden="true">
+      <div class="mock-head">
+        <svg width="22" height="22" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#c62f24"/><circle cx="50" cy="50" r="33" fill="#f3e5cf"/></svg>
+        SongConverter
+        <span class="ver">v1.2.0</span>
+      </div>
+      <div class="mock-body">
+        <div class="mock-side">
+          <div class="on">曲追加</div>
+          <div>並び替え</div>
+          <div>段位生成</div>
+          <div>段位変換</div>
+        </div>
+        <div class="mock-main">
+          <div class="bar-label">進行状況 — 68%（処理中…）</div>
+          <div class="mock-bar"><i></i></div>
+          <div class="mock-line w80"></div>
+          <div class="mock-line w60"></div>
+          <div class="mock-line w45"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="features">
+    <h2>機能 <span class="accent">Features</span></h2>
+    <p class="sec-sub">3つのツールと、このカスタム版ならではの改良点。</p>
+    <div class="grid">
+      <div class="card">
+        <h3><span class="en">SONGSORTER</span>並び替え</h3>
+        <p>esegit（太鼓の達人データベース）から曲リストを取得し、ダウンロードした TJA の曲フォルダを公式の並び順に自動で整理します。</p>
+      </div>
+      <div class="card">
+        <h3><span class="en">DANGENERATOR</span>段位生成</h3>
+        <p>太鼓の達人 Wiki の段位ページから、TaikøNauts 用の段位認定コースファイルを自動生成します。</p>
+      </div>
+      <div class="card">
+        <h3><span class="en">DANCONVERTOR</span>段位変換</h3>
+        <p>OpenTaiko 形式の段位 TJA を、TaikøNauts で使える形式に変換します。</p>
+      </div>
+      <div class="card">
+        <h3><span class="en">PROGRESS</span>大きな進行状況パネル</h3>
+        <p>処理の進み具合がひと目で分かる大型パネル（進捗バー＋パーセント＋処理数＋経過時間）を搭載。</p>
+      </div>
+      <div class="card">
+        <h3><span class="en">MODERN UI</span>モダンなデザイン</h3>
+        <p>左サイドバー＋ヘッダーのレイアウト、角丸ボタン、ダークテーマ。最近の Windows アプリ風の見た目に刷新しました。</p>
+      </div>
+      <div class="card">
+        <h3><span class="en">SINGLE FILE</span>インストール不要</h3>
+        <p>exe 1ファイルで動作します。.NET ランタイム同梱なので、ダウンロードしてそのまま実行できます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="usage">
+    <h2>使い方 <span class="accent">Usage</span></h2>
+    <p class="sec-sub">左のサイドバーからツールを選んで使うだけです。</p>
+    <div class="grid">
+      <div class="card">
+        <h3>並び替え</h3>
+        <ol>
+          <li>「リスト取得」で esegit からカテゴリ別の曲リストを取得</li>
+          <li>曲をダウンロードするフォルダを選択</li>
+          <li>「整理する」を押すと公式順に並び替え</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>段位生成</h3>
+        <ol>
+          <li>太鼓の達人 Wiki の段位ページの URL を入力</li>
+          <li>出力先フォルダを選択</li>
+          <li>「段位を生成」で TaikøNauts 用ファイルを生成</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>段位変換</h3>
+        <ol>
+          <li>OpenTaiko の段位 TJA フォルダを選択</li>
+          <li>出力先を選択</li>
+          <li>「変換」で TaikøNauts 形式に変換</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <h2>ダウンロード <span class="accent">Download</span></h2>
+    <p class="sec-sub">最新版はこちら。過去のバージョン（ダウングレード用）も置いています。</p>
+
+    <div class="ver-card">
+      <div class="ver-head">
+        <span class="v">v1.2.0</span>
+        <span class="badge">最新版</span>
+        <span class="date">2026-11-21</span>
+      </div>
+      <ul>
+        <li>モダン UI 化: 上部タブを廃止し、左サイドバー＋ヘッダーのレイアウトに変更</li>
+        <li>角丸ボタン、Windows 11 の角丸ウィンドウ</li>
+        <li>明るめのレッドアクセントの新配色、広めの余白、Yu Gothic UI フォント</li>
+      </ul>
+      <div class="ver-dl">
+        <a class="btn-small btn-primary" href="https://github.com/taniniya/SongConverter/releases/download/v1.2.0/SongConverter-v1.2.0.exe">SongConverter-v1.2.0.exe</a>
+        <a class="btn-small btn-ghost" href="https://github.com/taniniya/SongConverter/releases/tag/v1.2.0">リリースノート</a>
+      </div>
+    </div>
+
+    <div class="ver-card">
+      <div class="ver-head">
+        <span class="v">v1.1.0</span>
+        <span class="date">2026-11-21</span>
+      </div>
+      <ul>
+        <li>進行状況パネルの大型化（進捗バー＋処理数＋経過時間つき）</li>
+        <li>全面ダークテーマ（太鼓レッドのアクセント、ターミナル風ログ）</li>
+        <li>新しい太鼓アイコン</li>
+      </ul>
+      <div class="ver-dl">
+        <a class="btn-small btn-primary" href="https://github.com/taniniya/SongConverter/releases/download/v1.1.0/SongConverter-v1.1.0.exe">SongConverter-v1.1.0.exe</a>
+        <a class="btn-small btn-ghost" href="https://github.com/taniniya/SongConverter/releases/tag/v1.1.0">リリースノート</a>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>ダウングレードについて:</strong>
+      古いバージョンに戻したいときは、過去の exe をダウンロードしてそのまま実行するだけです。設定は引き継がれます。<br />
+      <strong>初回起動時の注意:</strong>
+      署名のない exe のため、Windows SmartScreen の警告が出る場合があります。その場合は「詳細情報」→「実行」を選択してください。
+    </div>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <p>
+      <a href="https://github.com/taniniya/SongConverter">GitHub</a> ・
+      <a href="https://github.com/taniniya/SongConverter/releases">Releases</a> ・
+      MIT License
+    </p>
+    <p>SongConverter は bluetaiko 氏のオリジナルをベースにしたカスタム版です。</p>
+  </div>
+</footer>
+
+</body>
+</html>
